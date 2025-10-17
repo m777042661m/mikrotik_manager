@@ -163,6 +163,17 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Future<void> _launchPrivacyPolicy() async {
+    final Uri url = Uri.parse('https://m777042661m.github.io/mikrotik_manager/privacy_policy.html');
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('تعذر فتح رابط سياسة الخصوصية.'), backgroundColor: Colors.red),
+        );
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -388,7 +399,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     : const Text('اتصال', style: TextStyle(fontSize: 18)),
               ),
 
-              const SizedBox(height: 32),
+              const SizedBox(height: 8),
+              TextButton(
+                onPressed: _launchPrivacyPolicy,
+                child: Text(
+                  'سياسة الخصوصية',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.7),
+                    decoration: TextDecoration.underline,
+                    decorationColor: Colors.white.withOpacity(0.7),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 24),
               adWidget,
               const SizedBox(height: 16),
 
